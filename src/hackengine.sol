@@ -238,6 +238,54 @@ contract hackFinal is Ownable, ReentrancyGuard, AccessControl {
 
 
 
+    function fetchMarketPrice(address oracle) internal view returns (uint256) {
+        require(Address.isContract(oracle), "Invalid Oracle contract address");
+
+        IChronicle chronicleContract = IChronicle(oracle);
+
+        // Fetch the latest market price
+        return chronicleContract.read();
+    }
+
+    // Function to calculate the standard deviation of market prices
+    function calculateMarketPriceStandardDeviation(address oracle, uint256[] memory prices) internal view returns (uint256) {
+        uint256 sum = 0;
+        uint256 length = prices.length;
+
+        // Calculate the sum of prices
+        for (uint256 i = 0; i < length; i++) {
+            sum += prices[i];
+        }
+
+        // Calculate the mean of prices
+        uint256 mean = sum / length;
+
+        // Calculate the sum of squared differences
+        uint256 sumSquaredDifferences = 0;
+        for (uint256 i = 0; i < length; i++) {
+            sumSquaredDifferences += (prices[i] - mean)**2;
+        }
+
+        // Calculate the variance
+        uint256 variance = sumSquaredDifferences / length;
+
+        // Calculate the standard deviation
+        return sqrt(variance);
+    }
+
+    // Helper function to calculate the square root
+    function sqrt(uint256 x) internal pure returns (uint256) {
+        uint256 z = (x + 1) / 2;
+        uint256 y = x;
+        while (z < y) {
+            y = z;
+            z = (x / z + z) / 2;
+        }
+        return y;
+    }
+
+    
+
     
 
 
@@ -530,6 +578,77 @@ contract hackFinal is Ownable, ReentrancyGuard, AccessControl {
 
 
  
+    // Function to perform the liquidation with standard deviation check
+    function liquidateSpark(uint256 vid, address user, uint256 debtToCover, address oracle) external nonReentrant {
+        // Fetch the latest market price from the Chronicle Oracle
+        uint256 currentMarketPrice = fetchMarketPrice(oracle);
+
+        // Check if the current price deviates significantly from the historical prices
+        // Replace historicalPrices with an array containing past prices retrieved from the oracle
+        uint256[] memory historicalPrices = getHistoricalPricesFromOracle(oracle);
+
+        uint256 marketPriceDeviation = calculateMarketPriceStandardDeviation(oracle, historicalPrices);
+
+        require(
+            currentMarketPrice > historicalPrices[historicalPrices.length - 1] - marketPriceDeviation &&
+            currentMarketPrice < historicalPrices[historicalPrices.length - 1] + marketPriceDeviation,
+            "Market price deviation exceeds threshold"
+        );
+
+         require(!isLiquidated[user], "User has been liquidated");
+       // require(debtToCover <= userMintedUUSD[user], "Debt to cover exceeds user's borrow balance");
+
+        uint256 startingUserHealthFactor = _healthFactor(user);
+        if (startingUserHealthFactor >= MIN_HEALTH_FACTOR) {
+            revert("Health Factor Ok");
+        }
+
+        IERC20 reserves = _rsvVault[vid].collateral;
+        reserves.safeTransfer(address(msg.sender), debtToCover);
+
+        // Ensure the vault has sufficient collateral for liquidation
+        uint256 currentVaultBalance = _rsvVault[vid].amount;
+        require(currentVaultBalance >= debtToCover, "Insufficient collateral balance");
+
+        // Convert unstableColPrice to wei
+        uint256 unstableColPriceWei = unstableColPrice * WEI_VALUE;
+
+        // Calculate the collateral value needed for liquidation at unstableColPrice in wei
+        uint256 collateralToRecover = debtToCover.mul(WEI_VALUE).div(unstableColPriceWei);
+        uint256 bonusCollateral = collateralToRecover.mul(LIQUIDATION_BONUS).div(100);
+        collateralToRecover = collateralToRecover.add(bonusCollateral);
+
+        // Update the user's liquidation data
+        userLiquidationData[user][vid] = LiquidationData(debtToCover, collateralToRecover);
+
+        // Burn Uusd equal to debtToCover
+        _burnUusd(debtToCover, user, msg.sender);
+
+        // Transfer the collateral back to the liquidator
+        _redeemCollateral(vid, collateralToRecover, user, msg.sender);
+
+        // Update user borrowed balance and liquidation status
+        userMintedUUSD[user] = userMintedUUSD[user].sub(debtToCover);
+
+        // Subtract the collateral to be removed from the user's total collateral of the respective reserve
+        userCollateral[user][vid] = userCollateral[user][vid].sub(collateralToRecover);
+
+        // Update total collateral in USD for the specific vid
+        _updateTotalCollateralInUSD(vid, collateralToRecover, false);
+
+        uint256 endingUserHealthFactor = _healthFactor(user);
+
+        // This conditional should never hit, but just in case
+        if (endingUserHealthFactor <= startingUserHealthFactor) {
+            revert("Health Factor Not Improved");
+        }
+
+        revertIfHealthFactorIsBroken(msg.sender);
+        // Mark the user as liquidated
+        isLiquidated[user] = true;
+    }
+
+
 
    
 
