@@ -1,0 +1,468 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "extensionAddr",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string[][]",
+						"name": "subjectTemplates",
+						"type": "string[][]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "maxExecutionGas",
+						"type": "uint256"
+					}
+				],
+				"name": "ExtensionPublished",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "addressOfExtensionName",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "defaultExtensionOfCommand",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletAddr",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "command",
+						"type": "string"
+					}
+				],
+				"name": "getExtensionForCommand",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "extensionAddr",
+						"type": "address"
+					}
+				],
+				"name": "getSubjectTemplatesOfExtension",
+				"outputs": [
+					{
+						"internalType": "string[][]",
+						"name": "",
+						"type": "string[][]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "maxGasOfExtension",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "string[][]",
+						"name": "subjectTemplates",
+						"type": "string[][]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxExecutionGas",
+						"type": "uint256"
+					}
+				],
+				"name": "publishExtension",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes[]",
+						"name": "defaultExtensions",
+						"type": "bytes[]"
+					}
+				],
+				"name": "setDefaultExtensions",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletAddr",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "command",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "extensionAddr",
+						"type": "address"
+					}
+				],
+				"name": "setExtensionForCommand",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "subjectTemplatesOfExtension",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "userExtensionOfCommand",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"getExtensionForCommand(address,string)": {
+					"params": {
+						"command": "Command for which the extension address is to be returned",
+						"walletAddr": "The user's wallet address"
+					}
+				},
+				"getSubjectTemplatesOfExtension(address)": {
+					"params": {
+						"extensionAddr": "Address of the extension"
+					}
+				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"publishExtension(string,address,string[][],uint256)": {
+					"details": "First word of each subject template should be same and is called \"command\"; command should be one word",
+					"params": {
+						"addr": "Address of the extension contract",
+						"maxExecutionGas": "Max gas allowed for the extension",
+						"name": "Name of the extension",
+						"subjectTemplates": "Subject templates for the extension"
+					}
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+				},
+				"setDefaultExtensions(bytes[])": {
+					"params": {
+						"defaultExtensions": "Array of default extensions encoded as (string name, address addr, string[][] templates, uint256 maxGas)"
+					}
+				},
+				"setExtensionForCommand(address,string,address)": {
+					"params": {
+						"command": "Command for which the extension address is to be set",
+						"extensionAddr": "Address of the extension",
+						"walletAddr": "The user's wallet address"
+					}
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"getExtensionForCommand(address,string)": {
+					"notice": "Return the extension address for a command and user"
+				},
+				"getSubjectTemplatesOfExtension(address)": {
+					"notice": "Return the subject templates for an extension"
+				},
+				"publishExtension(string,address,string[][],uint256)": {
+					"notice": "Register a new extension"
+				},
+				"setDefaultExtensions(bytes[])": {
+					"notice": "Set default extensions for all users"
+				},
+				"setExtensionForCommand(address,string,address)": {
+					"notice": "Set the default extension for a command"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"packages/contracts/src/handlers/ExtensionHandler.sol": "ExtensionHandler"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fc980984badf3984b6303b377711220e067722bbd6a135b24669ff5069ef9f32",
+				"dweb:/ipfs/QmPHXMSXj99XjSVM21YsY6aNtLLjLVXDbyN76J5HQYvvrz"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"@openzeppelin/contracts/utils/Strings.sol": {
+			"keccak256": "0x3088eb2868e8d13d89d16670b5f8612c4ab9ff8956272837d8e90106c59c14a0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b81d9ff6559ea5c47fc573e17ece6d9ba5d6839e213e6ebc3b4c5c8fe4199d7f",
+				"dweb:/ipfs/QmPCW1bFisUzJkyjroY3yipwfism9RRCigCcK1hbXtVM8n"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/Math.sol": {
+			"keccak256": "0xe4455ac1eb7fc497bb7402579e7b4d64d928b846fce7d2b6fde06d366f21c2b3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cc8841b3cd48ad125e2f46323c8bad3aa0e88e399ec62acb9e57efa7e7c8058c",
+				"dweb:/ipfs/QmSqE4mXHA2BXW58deDbXE8MTcsL5JSKNDbm23sVQxRLPS"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/SignedMath.sol": {
+			"keccak256": "0xf92515413956f529d95977adc9b0567d583c6203fc31ab1c23824c35187e3ddc",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c50fcc459e49a9858b6d8ad5f911295cb7c9ab57567845a250bf0153f84a95c7",
+				"dweb:/ipfs/QmcEW85JRzvDkQggxiBBLVAasXWdkhEysqypj9EaB6H2g6"
+			]
+		},
+		"packages/contracts/src/handlers/ExtensionHandler.sol": {
+			"keccak256": "0x45222fd8dcfceb4f1ad34447f5eccba3029c7c3ece1478343c59c3b13d2dd512",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0ddd93f9974e32b2fadf64df61b1e7ce8c9cd81f09e661d8281769829e69f702",
+				"dweb:/ipfs/QmXmjgoyfFvmGciRYaVrkbjRgMAyAnU43X7KqsT8kUSCPr"
+			]
+		},
+		"packages/contracts/src/interfaces/Commands.sol": {
+			"keccak256": "0x51c231cbf0add6f1be7c06183e22a5825f3a8f8d42704bfbec90e27de58fb529",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e69728eb260a8a91f0ba5da04d7f360ce28bc39fd3ec9b440a742c60c412de03",
+				"dweb:/ipfs/QmQYzasGzc5uHhaENkPJCyBdE4LuN4KaZwn8aR9FKw2KWi"
+			]
+		},
+		"packages/contracts/src/interfaces/Events.sol": {
+			"keccak256": "0x7f69668b85b99cf36918bf3b955b621bbdc4c3317e9c8153e3be6191ab757af5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a0c2914dc5b83beca0f35bc90f0d6b48c8a16a61705da3b3aba98a7fc6c63b9c",
+				"dweb:/ipfs/QmYmJ3dnan9f5Z7Vub6tCV2R9Z1Qo2Lr1vt8F3vQvkX2KP"
+			]
+		},
+		"packages/contracts/src/interfaces/Types.sol": {
+			"keccak256": "0x50de74eedcbbd193493096609b7cde01aab5b23d25a61931db92ec6ee5b90719",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bfd7033fa1fee901603afd2f0efc887a442b2cb9157e1037db2519cdd0f7fc69",
+				"dweb:/ipfs/Qma32ioLTpvmsfdvzkwWANyoxDrf6FaynzmzzzG715Trr4"
+			]
+		}
+	},
+	"version": 1
+}
