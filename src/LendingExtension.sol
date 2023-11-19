@@ -2,9 +2,9 @@
 pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import {Extension} from "@email-wallet/src/interfaces/Extension.sol";
-import {EmailWalletCore} from "@email-wallet/src/EmailWalletCore.sol";
-import "@email-wallet/src/interfaces/Types.sol";
+import {Extension} from "../@email-wallet-local/src/interfaces/Extension.sol";
+import {EmailWalletCore} from "../@email-wallet-local/src/EmailWalletCore.sol";
+import "../@email-wallet-local/src/interfaces/Types.sol";
 import "./daiStable.sol";
 
 // 1. can invoke dai transfer with approval(?)

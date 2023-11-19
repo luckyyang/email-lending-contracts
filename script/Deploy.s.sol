@@ -3,8 +3,8 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Script.sol";
 import "../src/LendingExtension.sol";
-import {EmailWalletCore} from "@email-wallet/src/EmailWalletCore.sol";
-import {ExtensionHandler} from "@email-wallet/src/handlers/ExtensionHandler.sol";
+import {EmailWalletCore} from "../@email-wallet-local/src/EmailWalletCore.sol";
+import {ExtensionHandler} from "../@email-wallet-local/src/handlers/ExtensionHandler.sol";
 
 contract Deploy is Script {
     uint256 constant maxFeePerGas = 2 gwei;
